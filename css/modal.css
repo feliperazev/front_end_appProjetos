@@ -1,0 +1,112 @@
+.modal{
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000090;
+    opacity: 0;
+    z-index: -1;
+}
+.modal.active{
+    opacity:  1;
+    z-index: 1;
+}
+
+.modal-content{
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    width: fit-content;
+    height: 580px;
+    margin: 5vh auto;
+    padding: 0px 0px 10px 0px;
+    background-color: rgb(217, 214, 214);     
+    box-shadow: 1px 1px 10px black;
+}
+
+.modal-header{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    height: 40px;
+    line-height: 40px;
+    font-size: 0.8rem;
+}
+
+.modal-close{
+    position: absolute; 
+    right: 0;
+    display: block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+}
+
+.modal-close:hover{
+    background-color: rgba(24, 89, 163, 0.413);
+    color: white;
+}
+
+.modal-form{
+    font-size: 0.8rem;
+    display: flex;  
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 0 20px 10px 20px;
+    height: fit-content;
+    
+}
+
+.form-div-interna{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+label{
+    height: fit-content;
+    padding: 5px 0 0 0;
+    font-weight: bold;
+}
+
+.modal-field,.modal-field-data{
+    width: fit-content;
+    height: fit-content;
+    outline-style: none;
+    border-style: none;
+    box-shadow: 0 0 2px black;
+    padding: 0 10px;
+}
+
+.modal-field:focus, .modal-field:hover{
+    border: var(--primary-color);
+    box-shadow: var(--primary-color);
+}
+.modal-field-data:hover{
+    border: var(--primary-color);
+    box-shadow: var(--primary-color);
+}
+::-webkit-calendar-picker-indicator{
+    cursor: pointer;
+}
+::-webkit-calendar-picker{
+    size: 10cm;
+}
+.modal-footer{
+    display: flex;
+    gap: 35%;
+    padding: 20px;
+    align-items: flex-start;
+    background-color: inherit;
+}

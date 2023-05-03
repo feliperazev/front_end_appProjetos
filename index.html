@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href=".\css\main.css">
+    <link rel="stylesheet" href=".\css\button.css">
+    <link rel="stylesheet" href=".\css\records.css">
+    <link rel="stylesheet" href=".\css\modal.css">
+    
+    
+    <title>Projetos</title>
+</head>
+
+
+
+<body>
+    <header>
+        <h1 class="header-title">Projetos</h1>
+    </header>
+    <main>
+        <button type="button" class="button blue" id="cadastrarProjeto">Novo Projeto</button>
+        
+        <!-- Tabela de projetos -->
+        <table id ="tableProjeto" class="records">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Cliente</th>
+                    <th>Solicitante</th>
+                    <th>Coordenador</th>
+                    <th>Horas Previstas</th>
+                    <th>Horas Acumuladas</th>
+                    <th id="colDate">Início</th>
+                    <th id="colDate">Fim</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Conteúdo dinâmico      -->
+            </tbody>
+        </table>
+
+        <!-- Modal para cadastro de projeto -->
+        <div class="modal" id="modal">
+            <div class="modal-content" id="modal">
+                <header class="modal-header">
+                    <h2>Novo Projeto</h2>
+                    <span class="modal-close" id="modalClose">&#10006;</span>
+                </header>
+                <form class="modal-form" id="form">
+                    <div class="form-div-interna">
+                        <label for="codigo">Código</label>
+                        <input type="text" id="codigo" data-index="new" class="modal-field" placeholder="Código do projeto" required>
+                    </div>
+                    <div class="form-div-interna">
+                        <label for="cliente">Cliente</label>
+                        <input type="text" id="cliente" class="modal-field" placeholder="Cliente" required>
+                    </div>
+                    <div class="form-div-interna">
+                        <label for="solicitante">Solicitante</label>
+                        <input type="text" id="solicitante" class="modal-field" placeholder="Solicitante" required>
+                    </div>
+                    <div class="form-div-interna">
+                        <label for="coordenador">Coordenador</label>
+                        <input type="text" id="coordenador" class="modal-field" placeholder="Coordenador" required>
+                    </div>     
+                    <div class="form-div-interna">
+                        <label for="horasPrev">Horas Previstas</label>
+                        <input type="text" id="horasPrev" class="modal-field" placeholder="Horas" required>
+                    </div>     
+
+                    <div class="form-div-interna">
+                        <label for="dataInicio">Início</label>
+                        <input type="date" id="dataInicio" class="modal-field-data" required>
+                        <label for="dataEntr">Entrega</label>
+                        <input type="date" id="dataEntr" class="modal-field-data" required>
+                    </div>                      
+                    
+                </form>
+                <footer class="modal-footer">
+                    <button class="button blue" id="modalSalvar">Salvar</button>
+                    <button class="button gray" id="modalCancelar">Cancelar</button>
+                </footer>
+            </div>
+        </div>
+    </main>
+    <script src="main.js" defer></script>
+</body>
+</html>
