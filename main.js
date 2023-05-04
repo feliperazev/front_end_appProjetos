@@ -2,6 +2,45 @@
 
 /*
     ----------------------------------------------------------------------------------------------------------------
+    Função para popular a tabela de projetos
+    ----------------------------------------------------------------------------------------------------------------
+*/
+const createRow = (projeto, index) => {
+  const newRow = document.createElement('tr')
+  
+  // Formatação de datas para padrão brasileiro
+  const dataEntr = new Date(projeto.dataEntr);
+  const dataInicio = new Date(projeto.dataInicio);
+  const dataEntrFormatada = dataEntr.toLocaleDateString('pt-BR', {
+      timeZone: 'UTC',
+      });
+  const dataInicioFormatada = dataInicio.toLocaleDateString('pt-BR', {
+      timeZone: 'UTC',
+      });
+
+
+  // Criação das linhas da tabela 
+  newRow.innerHTML = `
+      <td id="tdCodigo">${projeto.codigoProjeto}</td>
+      <td id="tdCliente">${projeto.cliente}</td>
+      <td id="tdSolicitante">${projeto.solicitante}</td>
+      <td id="tdCoordenador">${projeto.coordenador}</td>
+      <td id="tdHorasPrev">${projeto.horasPrev}</td>
+      <td id="tdHorasAcc">${projeto.horasAcc}</td>
+      <td id="tdDataInicio">${dataInicioFormatada}</td>
+      <td id="tdDataEntr">${dataEntrFormatada}</td>
+      <td>
+          <button class="button editar" type="button" id="editar-${index}">editar</button>
+          <button class="button excluir" type="button" id="excluir-${index}">excluir</button>
+      </td> 
+  `
+  document.querySelector('#tableProjeto>tbody').appendChild(newRow)
+}
+
+
+
+/*
+    ----------------------------------------------------------------------------------------------------------------
     Leitura da lista de projetos 
     Função para obter a lista existente do servidor via requisição GET
     ----------------------------------------------------------------------------------------------------------------
@@ -20,42 +59,6 @@ const updateTable = async () => {
 
 }
 
-/*
-    ----------------------------------------------------------------------------------------------------------------
-    Função para popular a tabela de projetos
-    ----------------------------------------------------------------------------------------------------------------
-*/
-const createRow = (projeto, index) => {
-    const newRow = document.createElement('tr')
-    
-    // Formatação de datas para padrão brasileiro
-    const dataEntr = new Date(projeto.dataEntr);
-    const dataInicio = new Date(projeto.dataInicio);
-    const dataEntrFormatada = dataEntr.toLocaleDateString('pt-BR', {
-        timeZone: 'UTC',
-        });
-    const dataInicioFormatada = dataInicio.toLocaleDateString('pt-BR', {
-        timeZone: 'UTC',
-        });
-
-
-    // Criação das linhas da tabela 
-    newRow.innerHTML = `
-        <td id="tdCodigo">${projeto.codigoProjeto}</td>
-        <td id="tdCliente">${projeto.cliente}</td>
-        <td id="tdSolicitante">${projeto.solicitante}</td>
-        <td id="tdCoordenador">${projeto.coordenador}</td>
-        <td id="tdHorasPrev">${projeto.horasPrev}</td>
-        <td id="tdHorasAcc">${projeto.horasAcc}</td>
-        <td id="tdDataInicio">${dataInicioFormatada}</td>
-        <td id="tdDataEntr">${dataEntrFormatada}</td>
-        <td>
-            <button class="button editar" type="button" id="editar-${index}">editar</button>
-            <button class="button excluir" type="button" id="excluir-${index}">excluir</button>
-        </td> 
-    `
-    document.querySelector('#tableProjeto>tbody').appendChild(newRow)
-}
 
 /*
   --------------------------------------------------------------------------------------
@@ -67,12 +70,6 @@ const clearTable = () => {
     rows.forEach(row => row.parentNode.removeChild(row))
 }
 
-/*
-  --------------------------------------------------------------------------------------
-  Chamada da função para carregamento inicial dos dados
-  --------------------------------------------------------------------------------------
-*/
-updateTable()
 
 
 /*
@@ -104,7 +101,9 @@ const postItem = async (projeto) => {
         if(message == `Projeto de mesmo código já salvo na base :/`){
             alert(message)
         } else {
-            alert("Projeto adicionado!");    
+            alert("Projeto adicionado!");
+            closeModal();
+
         }
       })
       .catch((error) => {
@@ -156,7 +155,8 @@ const putItem = async (projeto) => {
         if(message == `Projeto de mesmo código já salvo na base :/`){
             alert(message)
         } else {
-            alert(`Projeto ${projeto.codigoProjeto} alterado!`);    
+            alert(`Projeto ${projeto.codigoProjeto} alterado!`);
+            updateTable()    
         }
       })
       .catch((error) => {
@@ -184,6 +184,8 @@ const closeModal = () => {
     document.getElementById('modal').classList.remove('active') 
     clearFields()
     clearFieldsData()
+    updateTable()
+
 }
 
 //Validação dos campos do modal
@@ -289,6 +291,8 @@ const editDelete = (event) => {
             const response = confirm(`Deseja realmente excluir o projeto ${projeto.codigoProjeto}`)
                 if (response) {
                     deleteProjeto(projeto.codigoProjeto)
+                    updateTable()
+                    closeModal()
                 }
         }
     }
@@ -327,6 +331,15 @@ const readProjeto = (RowIndex) => {
     
     return projeto
 }
+
+/*
+  --------------------------------------------------------------------------------------
+  Chamada da função para carregamento inicial dos dados
+  --------------------------------------------------------------------------------------
+*/
+updateTable()
+
+
 //EVENTOS
 document.getElementById('cadastrarProjeto')
     .addEventListener('click', openModal)
